@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ajax starting point (using XMLHttpRequest)</title>
+    <!-- Custom styles -->
+    <style>
+      html,
+      pre {
+        font-family: sans-serif;
+      }
+
+      body {
+        width: 500px;
+        margin: 0 auto;
+        background-color: #ccc;
+      }
+
+      pre {
+        line-height: 1.5;
+        letter-spacing: 0.05rem;
+        padding: 1rem;
+        background-color: #fff;
+      }
+
+      label {
+        width: 200px;
+        margin-right: 33px;
+      }
+
+      select {
+        width: 350px;
+        padding: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Ajax starting point (using XMLHttpRequest)</h1>
+
+    <form action="">
+      <label for="verse-choose">Choose a verse</label>
+      <select name="verse-choose" id="verse-choose">
+        <option>Verse 1</option>
+        <option>Verse 2</option>
+        <option>Verse 3</option>
+        <option>Verse 4</option>
+      </select>
+    </form>
+
+    <h2>The Conqueror Worm, <em>Edgar Allen Poe, 1843</em></h2>
+
+    <pre></pre>
+
+    <script>
+      /* 01 - USING XMLHttpRequest*/
+
+      // Get references to the <select> and <pre> elements
+      const verseChoose = document.querySelector('select');
+      const poemDisplay = document.querySelector('pre');
+
+      // Get refence to the server's directory in which the text files are contained
+      const directory =
+        'http://127.0.0.1:5500/Javascript_MDN/05_Client_side_web_APIs/02_Fetching_data_from_the_server/assets';
+
+      // Defines an onchange event handler function
+      // so that when the select's value is changed,
+      // its value is passed to an invoked function updateDisplay as a parameter
+      verseChoose.onchange = function () {
+        const verse = verseChoose.value;
+        updateDisplay(verse);
+      };
+
+      // Defines a updateDisplay function
+      function updateDisplay(verse) {
+        // Gets the url of the text file on the server
+        // NOTE: The value of the <select> element at any time is same as
+        // the text inside the selected <option> (unless you specify a different value in a value attribute)
+        const verseFileName = verse.replace(' ', '').toLowerCase();
+        const url = `${directory}/${verseFileName}.txt`;
+
+        // Creates a new XMLHttpRequest object using the XMLHttpRequest constructor
+        const request = new XMLHttpRequest();
+
+        // Use the open method to specify what HTTP request method to use to request
+        // the resources from the network,
+        // and what its URL is
+        request.open('GET', url);
+
+        // Sets the type of response we are expecting- which is defined by the request's reponseType property
+        request.responseType = 'text';
+
+        // Adds an onload event handler, which runs when the response has returned, to the request object
+        request.onload = function () {
+          poemDisplay.textContent = this.response;
+        };
+
+        // This above is all set up for the XHR request - it won't actually run until we tell it to,
+        // which is done by calling the send method.
+        request.send();
+      }
+
+      // Solve the problem that it won't show any of the poem when it first load:
+      // Load verse 1 by default, and make sure the <select> element shows the correct value:
+      updateDisplay('Verse 1');
+      verseChoose.value = 'Verse 1';
+    </script>
+  </body>
+</html>

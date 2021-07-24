@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>XMLHttpRequest.responseType example</title>
+    <!-- Customg styles -->
+    <style>
+      li.pass {
+        color: green;
+      }
+
+      li.fail {
+        color: red;
+      }
+
+      li.failed {
+        color: hotpink;
+      }
+    </style>
+  </head>
+  <body>
+    <ul id="results"></ul>
+
+    <script>
+      // Defines a assert function
+      function assert(condition, message) {
+        const results = document.getElementById('results');
+        const listItem = document.createElement('li');
+        condition ? (listItem.className = 'pass') : (listItem.className = 'fail');
+        listItem.textContent = message;
+        results.appendChild(listItem);
+      }
+      // Defines a function which display an error
+      function fail(message) {
+        const results = document.getElementById('results');
+        const listItem = document.createElement('li');
+        listItem.className = 'failed';
+        listItem.textContent = message;
+        results.appendChild(listItem);
+      }
+      // ----------------------------------------------------------------------------------------------------
+
+      // Get the reference to server's directory in which the files are contained
+      const directory =
+        'http://127.0.0.1:5500/Javascript_MDN/05_Client_side_web_APIs/02_Fetching_data_from_the_server/assets';
+      // -------------------------------------------------------------------------------------------------------
+
+      /* 01 - GET JSON OBJECT FROM THE SERVER */
+      // // Defines a function that get JSON object from the server
+      // // This function returns a Promise object
+      // function getJSON(url) {
+      //   return new Promise((resolve, reject) => {
+      //     const request = new XMLHttpRequest();
+      //     request.open('GET', url);
+      //     // Set the type of response
+      //     request.responseType = 'json';
+
+      //     request.onload = function () {
+      //       try {
+      //         if (this.status === 200) {
+      //           resolve(this.response);
+      //         } else {
+      //           reject(`${this.status} ${this.statusText}`);
+      //         }
+      //       } catch (err) {
+      //         reject(err);
+      //       }
+      //     };
+
+      //     request.onerror = function () {
+      //       reject(`${this.status} ${this.statusText}`);
+      //     };
+
+      //     request.send();
+      //   });
+      // }
+
+      // // Defines a function which process the respone from the server
+      // // This is async function
+      // async function procesJSON(url) {
+      //   try {
+      //     const response = await getJSON(url);
+      //     assert(response, response[0].name);
+      //   } catch (err) {
+      //     fail(err);
+      //   }
+      // }
+
+      // // Get the reference to server's directory in which the files are contained
+      // const directory =
+      //   'http://127.0.0.1:5500/Javascript_MDN/05_Client_side_web_APIs/02_Fetching_data_from_the_server/assets';
+
+      // // Calls the processReponse function
+      // procesJSON(`${directory}/ninjas.json`);
+      // ------------------------------------------------------------------------------------------------------
+
+      /* 02 - GET IMAGE FROM THE SERVER*/
+
+      // // Defines a function which gets a image's url
+      // // This function returns a Promise object
+      // function getImage(url) {
+      //   return new Promise((resolve, reject) => {
+      //     const request = new XMLHttpRequest();
+      //     request.open('GET', url);
+      //     // Set type of the request object: 'blob'
+      //     request.responseType = 'blob';
+
+      //     request.onload = function () {
+      //       try {
+      //         if (this.status === 200) {
+      //           resolve(this.response);
+      //         } else {
+      //           reject(`${this.status} ${this.statusText}`);
+      //         }
+      //       } catch (err) {
+      //         reject(`${this.status} ${this.statusText}`);
+      //       }
+      //     };
+
+      //     request.onerror = function () {
+      //       reject(`${this.status} ${this.statusText}`);
+      //     };
+
+      //     request.send();
+      //   });
+      // }
+
+      // // Defines a function which process the image's url got from the server
+      // // This is a async function
+      // async function processImage(url) {
+      //   try {
+      //     const imageURL = await getImage(url);
+      //     displayImage(imageURL);
+      //   } catch (err) {
+      //     fail(err);
+      //   }
+      // }
+
+      // // Defines a function which display an image
+      // function displayImage(url) {
+      //   const image = document.createElement('img');
+      //   image.src = URL.createObjectURL(url);
+      //   document.body.appendChild(image);
+      // }
+
+      // // Calls the processImage
+      // processImage(`${directory}/coffee.jpg`);
+      // ------------------------------------------------------------------------------------------------------
+
+      /* 03 - GET A TEXT FILE FROM THE SERVER*/
+
+      // Defines a function which get a string in a text file from the server
+      // This function returns a Promise object
+      function getText(url) {
+        return new Promise((resolve, reject) => {
+          const request = new XMLHttpRequest();
+          request.open('GET', url);
+          // Set type of response
+          request.responseType = 'text';
+
+          request.onload = function () {
+            try {
+              if (this.status === 200) {
+                resolve(this.response);
+              } else {
+                reject(`${this.status} ${this.statusText}`);
+              }
+            } catch (err) {
+              reject(`${this.status} ${this.statusText}`);
+            }
+          };
+
+          request.onerror = function () {
+            reject(`${this.status} ${this.statusText}`);
+          };
+
+          request.send();
+        });
+      }
+
+      // Defines a function which process the string in the text file from the server
+      // This is a async function
+      async function processText(url) {
+        try {
+          const poem = await getText(url);
+
+          // Process the response from the server
+          const poemDisplay = document.createElement('pre');
+          poemDisplay.textContent = poem;
+          document.body.appendChild(poemDisplay);
+        } catch (err) {
+          fail(err);
+        }
+      }
+
+      // Calls the processText function
+      processText(`${directory}/verse1.txt`);
+    </script>
+  </body>
+</html>

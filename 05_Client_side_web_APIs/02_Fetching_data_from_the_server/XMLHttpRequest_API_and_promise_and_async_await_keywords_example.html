@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>An XMLHttpRequest API Example</title>
+  </head>
+  <body>
+    <h1>The poem</h1>
+    <form action="">
+      <label for="verse-choose">Choose a verse</label>
+      <select name="verse-choose" id="verse-choose">
+        <option value="verse1">Verse 1</option>
+        <option value="verse2">Verse 2</option>
+        <option value="verse3">Verse 3</option>
+        <option value="verse4">Verse 4</option>
+      </select>
+    </form>
+    <pre></pre>
+
+    <script>
+      // Get refernces to the <select> and <pre> elements
+      const verseChoose = document.querySelector('#verse-choose');
+      const poemDisplay = document.querySelector('pre');
+
+      // Get reference to the server's directory in which the text files are contained
+      const directory =
+        'http://127.0.0.1:5500/Javascript_MDN/05_Client_side_web_APIs/02_Fetching_data_from_the_server/assets';
+
+      // Adds a "change" event hanlder to the verseChoose element.
+      verseChoose.addEventListener('change', function () {
+        let url =
+          verseChoose.value === 'verse1'
+            ? `${directory}/verse1.txt`
+            : verseChoose.value === 'verse2'
+            ? `${directory}/verse2.txt`
+            : verseChoose.value === 'verse3'
+            ? `${directory}/verse3.txt`
+            : `${directory}/verse4.txt`;
+
+        // Calls the processTextFile function
+        processTextFiles(url);
+      });
+
+      // Defines a function which get text files from the server
+      // This function returns a Promise object
+      function getText(url) {
+        return new Promise((resolve, reject) => {
+          // Creates a XMLHttpRequest object
+          const request = new XMLHttpRequest();
+          // Sets the method and url for request object
+          request.open('GET', url);
+          // Sets the type of reponse for request object
+          request.responseType = 'text';
+
+          // Adds a callback function after received the response
+          request.onload = function () {
+            try {
+              if (this.status === 200) {
+                resolve(this.response);
+              } else {
+                reject(`${this.status} ${this.statusText}`);
+              }
+            } catch (err) {
+              reject(err.message);
+            }
+          };
+
+          // Adds a callback function if there's an error
+          request.onerror = function () {
+            reject(`${this.status} ${this.statusText}`);
+          };
+
+          // Sends the request
+          request.send();
+        });
+      }
+
+      // Defines a function which processTextFiles
+      // This is asynchronous function which uses async and await keywords
+      async function processTextFiles(url) {
+        const verse = await getText(url);
+        // Calls the displayVerse function
+        displayVerse(verse);
+      }
+
+      // Defines a functin which displays a verse
+      function displayVerse(verse) {
+        poemDisplay.textContent = verse;
+      }
+    </script>
+  </body>
+</html>

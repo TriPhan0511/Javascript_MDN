@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Using Fetch API to get JSON from the server</title>
+    <!-- Custom styles -->
+    <style>
+      li.pass {
+        color: green;
+      }
+
+      li.fail {
+        color: red;
+      }
+
+      li.failed {
+        color: salmon;
+      }
+
+      pre {
+        line-height: 1.5;
+        letter-spacing: 0.05rem;
+        padding: 1rem;
+        background-color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <ul id="results"></ul>
+    <pre></pre>
+
+    <script>
+      // Defines a assert function
+      function assert(condition, message) {
+        const results = document.getElementById('results');
+        const listItem = document.createElement('li');
+        listItem.textContent = message;
+        condition ? (listItem.className = 'pass') : (listItem.className = 'fail');
+        results.appendChild(listItem);
+      }
+
+      // Defines a fail function
+      function fail(message) {
+        const results = document.getElementById('results');
+        const listItem = document.createElement('li');
+        listItem.textContent = message;
+        listItem.className = 'failed';
+        results.appendChild(listItem);
+      }
+
+      // Get reference to the server's directory in which the json file is contained
+      const directory =
+        'http://127.0.0.1:5500/Javascript_MDN/05_Client_side_web_APIs/02_Fetching_data_from_the_server/assets';
+
+      // Get a JSON file from the server
+      // and process the response from the server
+      fetch(`${directory}/ninjas.json`)
+        .then((response) => response.json())
+        .then((ninjas) => assert(ninjas, ninjas[0].name))
+        .catch((err) => fail(err.message));
+      // --------------------------------------------------------------
+
+      // Get an image from the server
+      fetch(`${directory}/coffee.jpg`)
+        .then((response) => response.blob())
+        .then((blob) => URL.createObjectURL(blob))
+        .then((imageUrl) => displayImage(imageUrl))
+        .catch((err) => fail(err));
+
+      // Defines a function which displays an image on a web page
+      function displayImage(url) {
+        const image = document.createElement('img');
+        image.src = url;
+        document.body.appendChild(image);
+      }
+      // --------------------------------------------------------------
+
+      // Get a text file from the server
+      fetch(`${directory}/verse1.txt`)
+        .then((response) => response.text())
+        .then((verse) => {
+          const poemDisplay = document.querySelector('pre');
+          poemDisplay.textContent = verse;
+        })
+        .catch((err) => fail(err.message));
+    </script>
+  </body>
+</html>

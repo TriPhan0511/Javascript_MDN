@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ajax starting point (using Fetch)</title>
+    <!-- Custom styles -->
+    <style>
+      html,
+      pre {
+        font-family: sans-serif;
+      }
+
+      body {
+        width: 500px;
+        margin: 0 auto;
+        background-color: #ccc;
+      }
+
+      pre {
+        line-height: 1.5;
+        letter-spacing: 0.05rem;
+        padding: 1rem;
+        background-color: #fff;
+      }
+
+      label {
+        width: 200px;
+        margin-right: 33px;
+      }
+
+      select {
+        width: 350px;
+        padding: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Ajax starting point (using Fetch)</h1>
+
+    <form action="">
+      <label for="verse-choose">Choose a verse</label>
+      <select name="verse-choose" id="verse-choose">
+        <option>Verse 1</option>
+        <option>Verse 2</option>
+        <option>Verse 3</option>
+        <option>Verse 4</option>
+      </select>
+    </form>
+
+    <h2>The Conqueror Worm, <em>Edgar Allen Poe, 1843</em></h2>
+
+    <pre></pre>
+
+    <script>
+      // Get references to the <select> and <pre> elements
+      const verseChoose = document.querySelector('select');
+      const poemDisplay = document.querySelector('pre');
+
+      // Get refence to the server's directory in which the text files are contained
+      const directory =
+        'http://127.0.0.1:5500/Javascript_MDN/05_Client_side_web_APIs/02_Fetching_data_from_the_server/assets';
+
+      // Defines an onchange event handler function
+      verseChoose.onchange = function () {
+        const verse = verseChoose.value;
+        updateDisplay(verse);
+      };
+
+      // Defines a updateDisplay function
+      function updateDisplay(verse) {
+        const verseFileName = verse.replace(' ', '').toLowerCase();
+        const url = `${directory}/${verseFileName}.txt`;
+
+        fetch(url)
+          .then((response) => response.text())
+          .then((text) => (poemDisplay.textContent = text))
+          .catch((err) => console.log(err));
+      }
+
+      // Solve the problem that it won't show any of the poem when it first load:
+      // Load verse 1 by default, and make sure the <select> element shows the correct value:
+      updateDisplay('Verse 1');
+      verseChoose.value = 'Verse 1';
+    </script>
+  </body>
+</html>

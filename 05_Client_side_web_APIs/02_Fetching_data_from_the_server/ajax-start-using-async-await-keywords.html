@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ajax starting point</title>
+    <!-- Custom styles -->
+    <style>
+      html,
+      pre {
+        font-family: sans-serif;
+      }
+
+      body {
+        width: 500px;
+        margin: 0 auto;
+        background-color: #ccc;
+      }
+
+      pre {
+        line-height: 1.5;
+        letter-spacing: 0.05rem;
+        padding: 1rem;
+        background-color: #fff;
+      }
+
+      label {
+        width: 200px;
+        margin-right: 33px;
+      }
+
+      select {
+        width: 350px;
+        padding: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Ajax starting point</h1>
+
+    <form action="">
+      <label for="verse-choose">Choose a verse</label>
+      <select name="verse-choose" id="verse-choose">
+        <option value="Verse 1">Verse 1</option>
+        <option value="Verse 2">Verse 2</option>
+        <option value="Verse 3">Verse 3</option>
+        <option value="Verse 4">Verse 4</option>
+      </select>
+    </form>
+
+    <h2>The Conqueror Worm, <em>Edgar Allen Poe, 1843</em></h2>
+
+    <pre></pre>
+
+    <script>
+      /* USING XMLHttpRequest*/
+
+      // Get references to the <select> and <pre> elements
+      const verseChoose = document.querySelector('select');
+      const poemDisplay = document.querySelector('pre');
+
+      // Get reference to the directori in which the text files are contained
+      const repo =
+        'http://127.0.0.1:5500/Javascript_MDN/05_Client_side_web_APIs/02_Fetching_data_from_the_server/assets';
+
+      // Defines a function which get text files from the server
+      // This function returns a Promise object.
+      function getTXT(url) {
+        return new Promise((resolve, reject) => {
+          const request = new XMLHttpRequest();
+          request.open('GET', url);
+          request.responseType = 'text';
+
+          request.onload = function () {
+            try {
+              if (this.status === 200) {
+                resolve(this.response);
+              } else {
+                reject(`${this.status} ${this.statusText}`);
+              }
+            } catch (err) {
+              reject(err.message);
+            }
+          };
+
+          request.onerror = function () {
+            reject(`${this.status} ${this.statusText}`);
+          };
+
+          request.send();
+        });
+      }
+
+      // Defines a function dislayVerse which display verses of a poem
+      function displayVerse(verse) {
+        poemDisplay.textContent = verse;
+      }
+
+      // Defines asynchronous function to process the text files obtained form the server
+      async function processTextFile(url) {
+        try {
+          const verse = await getTXT(url);
+          displayVerse(verse);
+        } catch (err) {
+          console.log(err);
+        }
+      }
+
+      // Adds a change event hanlder to the verseChoose element
+      verseChoose.addEventListener('change', function () {
+        const verseChooseValue = verseChoose.value;
+        let url = '';
+        if (verseChooseValue === 'Verse 1') {
+          url = `${repo}/verse1.txt`;
+        } else if (verseChooseValue === 'Verse 2') {
+          url = `${repo}/verse2.txt`;
+        } else if (verseChooseValue === 'Verse 3') {
+          url = `${repo}/verse3.txt`;
+        } else if (verseChooseValue === 'Verse 4') {
+          url = `${repo}/verse4.txt`;
+        }
+
+        // Calls the processTextFile
+        processTextFile(url);
+      });
+    </script>
+  </body>
+</html>
