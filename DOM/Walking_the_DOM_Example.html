@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="Common_Things/styles.css" />
+    <!-- Javascript -->
+    <script src="Common_Things/common_functions.js"></script>
+    <script defer src="Walking_the_DOM_Example.js"></script>
+  </head>
+  <body>
+    <div id="myDiv">
+      <p>This is a pragraph</p>
+      <ul>
+        <li>Item 1</li>
+        <li>Item 2</li>
+      </ul>
+    </div>
+    <ul id="results"></ul>
+    <script>
+      // Gets the references of some elements
+      const myDiv = document.querySelector('#myDiv');
+      const para = document.querySelector('p');
+      const list = document.querySelector('ul');
+
+      // parentElement, nextElementSibling, previousElementSibling properties
+      assert(
+        para.nextElementSibling === list,
+        'The next element node sibling of the para node is list node element.'
+      );
+      assert(
+        list.previousElementSibling === para,
+        'The previous element of the list element is the para element.'
+      );
+      assert(
+        list.parentElement === myDiv,
+        'The parent element of the list element is the myDiv element.'
+      );
+
+      // firstElementChild, lastElementChild, children properties
+      assert(
+        myDiv.firstElementChild === para,
+        'The first element child of the myDiv element is the para element.'
+      );
+      assert(
+        myDiv.lastElementChild === list,
+        'The last element child of the myDiv element is the list element.'
+      );
+      assert(myDiv.children.length === 2, 'The myDiv element has two element children.');
+
+    </script>
+  </body>
+</html>

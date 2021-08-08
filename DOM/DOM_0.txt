@@ -1,0 +1,26 @@
+DOM - Document Object Model
+
+The DOM connects web pages to scripts or programming languages by representing
+the struture of a document - such as the HTML representing a web page - in memory.
+Usually it refers to Javascript, even though modeling HTML, SVG, or XML documents
+as objects are not part of the core Javascript language.
+
+The DOM represents a document with a locgical tree. Each branch of the tree ends 
+in a node, and each node contains objects. DOM methods allow programatic access
+to the tree. With them, you can change the document's structure, style, or content.
+
+Nodes can also have event handlers attached to them. Once an event is triggered, 
+the event handlers get executed.
+----------------------------------------------------------------------------------------------------
+
+HTML DOM
+
+Document interface -> Element interface -> HTMLElement + subclasses
+
+A document containing HTML is decribed using the Document interface, which is extended
+by the HTML specification to include various HTML-specific features. In particular, 
+the Element interface is enhanced to become HTMLElement and various subclasses, 
+each representing one of (or a family of closely related) elements.
+
+The HTML DOM API provides access to various browser features such as tabs and windows,
+CSS styles and stylesheets, browser history, and so forth.
