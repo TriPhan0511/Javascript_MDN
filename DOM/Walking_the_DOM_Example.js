@@ -353,3 +353,59 @@
   </body>
 
  */
+// ---------------------------------------------------------------------------------
+
+/**
+ * NOTE
+ *
+ * Why parentElement? Can the parent be not an element?
+ *
+ * The parentNode returns "any node", while the parentElement returns the "element" parent.
+ * These properties are usually the same: they both get the parent.
+ * 
+ * But there is an exception, document.documentElement:
+ * 
+      assert(
+        document.documentElement.parentNode === document,
+        'The parent node of document.documentElement is the document node.'
+      );
+
+      assert(
+        document.documentElement.parentElement === null,
+        'The document.documentElement does not have any parent element.'
+      );
+ * 
+ * The reason is that the root node (the <html> tag) which we can get reference via document.documentElement
+ * has the document node as its parent. But the document node is not also an element node, 
+ * so document.documentElement.parentNode returns the document node,
+ * and document.documentElement.parentElement returns null.
+ * 
+ * That detail may be useful when we want to travel up from arbitrary element to <html>,
+ * but not to the document node.
+ * 
+ * Example:
+ * 
+        function travelUp(element, callback) {
+          callback(element);
+          while ((element = element.parentElement)) {
+            callback(element);
+          }
+        }
+
+        // Calls the travelUp function
+        travelUp(firstListItem, (item) => {
+          report(item.nodeName);
+        });
+ * 
+ * Use recursion:
+ * 
+ * 
+        function travelUp(element, callback) {
+          callback(element);
+          element = element.parentElement;
+          if (element) {
+            travelUp(element, callback);
+          }
+        }
+ * 
+ */

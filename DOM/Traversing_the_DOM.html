@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="Common_Things/styles.css" />
+    <!-- Javascript -->
+    <script src="Common_Things/common_functions.js"></script>
+  </head>
+  <body>
+    <div id="results"></div>
+    <div id="myDiv">
+      <p id="myPara"><strong>Hello</strong> <i>world!</i></p>
+      <ul>
+        <li>Item one</li>
+        <li>Item two</li>
+      </ul>
+      <!-- This is a comment -->
+    </div>
+
+    <!-- Javascript -->
+    <script>
+      // Gets the references of the tags
+      const myDiv = document.querySelector('#myDiv');
+
+      // // Defines a traverseDOM functions
+      // function traverseDOM(element, callback) {
+      //   callback(element);
+      //   element = element.firstElementChild;
+      //   while (element) {
+      //     traverseDOM(element, callback);
+      //     element = element.nextElementSibling;
+      //   }
+      // }
+
+      // // Calls the traverveDOM function
+      // traverseDOM(myDiv, (item) => {
+      //   report(item.nodeName);
+      // });
+
+      // -> DIV
+      // -> P
+      // -> STRONG
+      // -> I
+      // -> UL
+      // -> LI
+      // -> LI
+      // ----------------------------------------------------------------------
+
+      // Defines a generator function
+      function* traverseDOM_2(element) {
+        yield element;
+        element = element.firstElementChild;
+        while (element) {
+          yield* traverseDOM_2(element);
+          element = element.nextElementSibling;
+        }
+      }
+
+      for (const elem of traverseDOM_2(myDiv)) {
+        report(elem.nodeName);
+      }
+
+      // Same result:
+      // -> DIV
+      // -> P
+      // -> STRONG
+      // -> I
+      // -> UL
+      // -> LI
+      // -> LI
+    </script>
+  </body>
+</html>

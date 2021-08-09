@@ -12,45 +12,60 @@
     <script defer src="Walking_the_DOM_Example.js"></script>
   </head>
   <body>
+    <ul id="results"></ul>
     <div id="myDiv">
       <p>This is a pragraph</p>
-      <ul>
+      <ul id="myList">
         <li>Item 1</li>
         <li>Item 2</li>
       </ul>
     </div>
-    <ul id="results"></ul>
+    <!-- <ul id="results"></ul> -->
     <script>
-      // Gets the references of some elements
-      const myDiv = document.querySelector('#myDiv');
-      const para = document.querySelector('p');
-      const list = document.querySelector('ul');
+      // // Gets the references of some elements
+      // const myDiv = document.querySelector('#myDiv');
+      // const para = document.querySelector('p');
+      // const list = document.querySelector('#myList');
+      // const firstListItem = document.querySelector('li');
 
-      // parentElement, nextElementSibling, previousElementSibling properties
-      assert(
-        para.nextElementSibling === list,
-        'The next element node sibling of the para node is list node element.'
-      );
-      assert(
-        list.previousElementSibling === para,
-        'The previous element of the list element is the para element.'
-      );
-      assert(
-        list.parentElement === myDiv,
-        'The parent element of the list element is the myDiv element.'
-      );
+      // // // Defines a function for traveling up from an arbitrary element
+      // // function travelUp(element, callback) {
+      // //   callback(element);
+      // //   element = element.parentElement;
+      // //   if (element) {
+      // //     travelUp(element, callback);
+      // //   }
+      // // }
 
-      // firstElementChild, lastElementChild, children properties
-      assert(
-        myDiv.firstElementChild === para,
-        'The first element child of the myDiv element is the para element.'
-      );
-      assert(
-        myDiv.lastElementChild === list,
-        'The last element child of the myDiv element is the list element.'
-      );
-      assert(myDiv.children.length === 2, 'The myDiv element has two element children.');
+      // // // Calls the travelUp function
+      // // travelUp(firstListItem, (item) => {
+      // //   report(item.nodeName);
+      // // });
+      // // // -> LI
+      // // // -> UL
+      // // // -> DIV
+      // // // -> BODY
+      // // // -> HTML (document.documentElement)
+      // // --------------------------
 
+      // function travelUp(element, callback) {
+      //   callback(element);
+      //   while ((element = element.parentElement)) {
+      //     callback(element);
+      //   }
+      // }
+
+      // // Calls the travelUp function
+      // travelUp(firstListItem, (item) => {
+      //   report(item.nodeName);
+      // });
+      // // Same result:
+      // // -> LI
+      // // -> UL
+      // // -> DIV
+      // // -> BODY
+      // // -> HTML (document.documentElement)
+      // --------------------------------------------------------------------------------------------
     </script>
   </body>
 </html>
