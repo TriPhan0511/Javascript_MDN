@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>learning About Nodes</title>
+    <!-- Custom styles -->
+    <style>
+      * {
+        border: 2px solid #dedede;
+        padding: 15px;
+        margin: 15px;
+      }
+
+      html {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        max-width: 600px;
+        font-family: sans-serif;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Shark World</h1>
+    <p>The world's leading source on <strong>shark</strong> related information.</p>
+    <h2>Types of Sharks</h2>
+    <ul>
+      <li>Hammerhead</li>
+      <li>Tiger</li>
+      <li>Great White</li>
+    </ul>
+
+    <script>
+      // Gets the references of some elements
+      const h1 = document.querySelector('h1');
+      const p = document.querySelector('p');
+      const ul = document.querySelector('ul');
+
+      // Assigns html object to an html variable
+      const html = document.documentElement;
+
+      // console.log(html.parentNode);
+      // // -> #document
+      // console.log(html.parentElement);
+      // // -> null
+
+      // const tiger = ul.children[1];
+      // console.log(tiger.textContent);
+      // // -> Tiger
+
+      // console.log(tiger.previousElementSibling.textContent);
+      // // -> Hammerhead
+      // console.log(tiger.nextElementSibling.textContent);
+      // // -> Great White
+    </script>
+  </body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo list</title>
+  </head>
+  <body>
+    <ul>
+      <li>Buy groceries</li>
+      <li>Feed the cat</li>
+      <li>Do laundry</li>
+    </ul>
+  </body>
+  <script>
+    // Gets the reference of the ul element
+    const todoList = document.querySelector('ul');
+
+    // Creates a list item and assign text content for it
+    const listItem = document.createElement('li');
+    listItem.textContent = 'Do homework';
+
+    // Append the listItem to the end of todoList
+    todoList.append(listItem);
+
+    // Creates another list item, assign text content for ir
+    // and insert it to the beginning of the todoList
+    const anotherItem = document.createElement('li');
+    anotherItem.textContent = 'Pay bills';
+    todoList.insertBefore(anotherItem, todoList.firstElementChild);
+
+    // Creates a new list item, assign text content for it
+    const modifiedItem = document.createElement('li');
+    modifiedItem.textContent = 'Feed the dog';
+
+    // Replaces the previous sibling of the last child os the list
+    // Way 1:
+    // todoList.replaceChild(
+    //   modifiedItem,
+    //   todoList.lastElementChild.previousElementSibling.previousElementSibling
+    // );
+
+    // Way 2:
+    todoList.replaceChild(modifiedItem, todoList.children[2]);
+
+    // Removes a list item via removeChild method
+    // Remove the task "Do laundry"
+    todoList.removeChild(todoList.lastElementChild.previousElementSibling);
+
+    // Removes a list item via remove method
+    // Removes the task "Buy groceries"
+    todoList.firstElementChild.nextElementSibling.remove();
+  </script>
+</html>
