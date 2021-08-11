@@ -160,13 +160,48 @@
 /**
  * 
 DATA TYPE (INTERFACE)      |     DESCRIPTION 
-
-   Document                |     When a member returns an object of type document (e.g., the ownerDocument
-                           |     property of an element return the document to which it belongs), this object
+                           |   
+                           |     When a member returns an object of type document (e.g., the ownerDocument
+   Document                |     property of an element return the document to which it belongs), this object
                            |     is the root document object itself.
-   
-   Node                    |     Every object located within a document is a node of some kind. In an HTML 
-                                 document , an object can be an element node but also a text node or 
-                                 attribute node.                           
+   ------------------------|-------------------------------------------------------------------------------------
+                           |     Every object located within a document is a node of some kind. In an HTML 
+   Node                    |     document , an object can be an element node but also a text node or 
+                           |     attribute node.                           
+   ------------------------|-------------------------------------------------------------------------------------
+                           |     The element type is based on node. It refers to an element or a node of
+                           |     type element returned by a member of the DOM API. Rather than saying, that the
+                           |     document.createElement() method return an object reference to a node, we just say    
+                           |     this method returns the element that has just been created in the DOM.
+   Element                 |      
+                           |     element objects implement the DOM Element interface and also the more basic 
+                           |     Node interface, botht of which are included togetther in this reference.
+                           |
+                           |     In an HTML document, elements are further enhanced by the HTML DOM API's HTMLElement
+                           |     interface as well as other interfaces describing capabilities of specific kind of
+                           |     elements (for instance, HTMLTableElement for <table> elements.)
+   ------------------------|-------------------------------------------------------------------------------------
+                           |     A nodeList is an array of elements, like that is returned by the method
+                           |     document.querySelectorAll(). 
+                           |
+                           |     Items in a nodeList are accessed by index in either of two ways:
+   NodeList                |        _  list.item[1]
+                           |        _  list[1]
+                           |   
+                           |     These two are equivalent. In the first, item() is the single method on the 
+                           |     nodeList object. The latter uses the typical array syntax to fetch the second item 
+                           |     in the list.   
+   ------------------------|-------------------------------------------------------------------------------------
+                           |     When an attribute is returned by a member (e.g, by the createAttribute() method),
+   Attr                    |     it is an object reference that exposes a special (albeit small) interface fo attributes.
+                           |     Attributes are nodes in the DOM just like elements are, though you may rarely use them
+                           |     as much.
+   ------------------------|-------------------------------------------------------------------------------------
+                           |     A namedNodeMap is like an array, buth the items are accessed by name or index,
+                           |     though this latter is merely a convinience for enumeration, as they are in no 
+   NamedNodeMap            |     particular order in the list.
+                           |   
+                           |     A namedNodeMap has an item() method for this purpose, and you can also add and remove
+                           |     items from a namedNodeMap
+   ------------------------|-------------------------------------------------------------------------------------
  */
-

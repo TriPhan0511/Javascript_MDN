@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- This is a comment -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learning About Nodes</title>
+  </head>
+  <body>
+    <h1>An element node</h1>
+    <!-- A comment node -->
+    A text node.
+
+    <script>
+      // document.body.childNodes.forEach((child) => console.log(child.nodeName));
+
+      const elementNode = document.querySelector('h1'); // Node.TEXT_NODE = 1
+      const textNode = document.body.childNodes[4]; // Node.TEXT_NODE = 3
+      const commentNode = document.body.childNodes[3]; // Node.COMMENT_NODE = 8
+    </script>
+  </body>
+</html>

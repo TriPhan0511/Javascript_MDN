@@ -14,5 +14,21 @@
 
   <body>
     <ul id="results"></ul>
+
+    <script>
+      const map = new Map();
+      const ninja = {
+        name: 'Yoshi',
+      };
+      const homeTown = {
+        city: 'Hokaido',
+      };
+
+      map.set(ninja, homeTown);
+
+      const result = map.get(ninja);
+      console.log(result['city']);
+      console.log(result.city);
+    </script>
   </body>
 </html>
