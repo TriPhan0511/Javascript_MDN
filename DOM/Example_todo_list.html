@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test</title>
+  </head>
+  <body>
+    <input id="taskInp" type="text" placeholder="Task name" />
+    <input type="text" id="positionInp" placeholder="Position" />
+    <button id="addBtn">Add a new task</button>
+    <ul id="todoList">
+      <li>Zero <button class="deleteBtn">Delete</button></li>
+      <li>One <button class="deleteBtn">Delete</button></li>
+      <li>Two <button class="deleteBtn">Delete</button></li>
+    </ul>
+    <script>
+      // Gets the references
+      const todoList = document.querySelector('#todoList');
+      const deleteBtns = document.querySelectorAll('.deleteBtn');
+      const addBtn = document.querySelector('#addBtn');
+      const taskInp = document.querySelector('#taskInp');
+      const positionInp = document.querySelector('#positionInp');
+
+      // Add some actions after the DOM Content loaded
+      document.addEventListener('DOMContentLoaded', function () {
+        addRemoveAction();
+        taskInp.focus();
+      });
+
+      // Defines a function for adding event handler for children of todoList
+      function addRemoveAction() {
+        for (const item of todoList.children) {
+          item.firstElementChild.addEventListener('click', function () {
+            item.remove();
+          });
+        }
+      }
+
+      // Defines an addTask function
+      function addTask(task, list, position) {
+        // const listItem = document.createElement('li');
+        // listItem.textContent = task;
+        const item = document.createElement('li');
+        item.appendChild(document.createTextNode(task));
+        const btn = document.createElement('button');
+        btn.className = 'deleteBtn';
+        btn.textContent = 'Delete';
+        item.appendChild(btn);
+        position = Number.parseInt(position);
+        if (!position || position < 1 || position > list.childElementCount) {
+          list.appendChild(item);
+        } else {
+          list.insertBefore(item, list.children[position - 1]);
+        }
+      }
+
+      // Adds a new task: adds a click event handler to the addBtn button
+      addBtn.addEventListener('click', function () {
+        if (taskInp.value) {
+          // Calls the addTask function to
+          // add the new task to the todoList
+          // appendTask(taskInp.value, todoList);
+          addTask(taskInp.value, todoList, positionInp.value);
+
+          // Calls the addRemoveAction function
+          // to add the remove action to all children of the todoList
+          addRemoveAction();
+          // Removes the input texts
+          taskInp.value = '';
+          positionInp.value = '';
+        } else {
+          taskInp.placeholder = 'You should enter a task!';
+          taskInp.style.border = '1px solid red';
+        }
+      });
+    </script>
+  </body>
+</html>
