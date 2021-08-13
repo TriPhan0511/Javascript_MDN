@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Events</title>
+  </head>
+  <body>
+    <!-- Way 1: Inline event handlers -->
+    <!-- <button onclick="toggleText()">Click here</button> -->
+
+    <button>Click here</button>
+    <p></p>
+  </body>
+  <script>
+    const para = document.querySelector('p');
+    const button = document.querySelector('button');
+
+    // Defines two callback function: toggleText and alertText
+    function toggleText() {
+      if (para.textContent === 'Hello, world!') {
+        para.textContent = 'Aloha, everybody!';
+      } else {
+        para.textContent = 'Hello, world!';
+      }
+    }
+
+    function alertText() {
+      alert('Hello');
+    }
+
+    // // Way 2: Event handler properties
+    // button.onclick = toggleText;
+    // button.onclick = alertText;
+
+    // // Way 3: Event listeners
+    // button.addEventListener('click', function () {
+    //   toggleText();
+    //   alertText();
+    // });
+
+  </script>
+</html>

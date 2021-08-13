@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test</title>
+    <!-- Custom styles -->
+    <style>
+      div {
+        width: 30%;
+        margin: 0 auto;
+      }
+      img {
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div><img src="images/cat.jpg" alt="Cat" /><button>Toggle the images</button></div>
+    <a href="https://vnexpress.net/">Vnexpress</a>
+  </body>
+
+  <script>
+    const link = document.querySelector('a');
+    console.log(link.href);
+    console.log(link.getAttribute('href'));
+    console.log(link.getAttribute('href') === link.href);
+    // console.log(link.setAttribute('href', 'https://zingnews.vn/'));
+
+    link.setAttribute('href', 'https://zingnews.vn/');
+    link.setAttribute('target', '_blank');
+    link.textContent = 'Zing';
+    link.removeAttribute('target');
+
+    // -----------------------------------------------------------------------
+
+    // // Gets the references of the elements
+    // const img = document.querySelector('img');
+    // const btn = document.querySelector('button');
+
+    // // Adds a click event handler to the button
+    // btn.addEventListener('click', () => {
+    //   if (img.getAttribute('src') === 'images/cat.jpg') {
+    //     img.setAttribute('src', 'images/puma.jpg');
+    //   } else {
+    //     img.setAttribute('src', 'images/cat.jpg');
+    //   }
+    // });
+
+    // -----------------------------------------------------------------------
+
+    // // Gets the reference to the repository which contains images
+    // const imgRepo = img.src.match(/([^\s]+\/)[^.]+.jpg$/)[1];
+    // const imgAlt = img.alt;
+
+    // // Adds a click event handler to the button
+    // btn.addEventListener('click', () => {
+    //   if (img.src === `${imgRepo}cat.jpg`) {
+    //     img.src = `${imgRepo}puma.jpg`;
+    //     img.alt = 'Puma';
+    //   } else {
+    //     img.src = `${imgRepo}cat.jpg`;
+    //     img.alt = imgAlt;
+    //   }
+    // });
+  </script>
+</html>

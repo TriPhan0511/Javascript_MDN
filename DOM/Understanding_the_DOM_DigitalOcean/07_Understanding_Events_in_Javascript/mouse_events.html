@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mouse Events Example</title>
+  </head>
+  <body>
+    <button>Click here</button>
+    <p id="para"></p>
+    <p id="para2"></p>
+  </body>
+  <script>
+    // Gets the references to seme HTML elements
+    const button = document.querySelector('button');
+    const para = document.querySelector('#para');
+    const para2 = document.querySelector('#para2');
+
+    // Defines a callback function
+    function toggleText(element, message1, message2) {
+      if (element.textContent === message1) {
+        element.textContent = message2;
+      } else {
+        element.textContent = message1;
+      }
+    }
+
+    // // click event
+    // button.addEventListener('click', function () {
+    //   toggleText(para, 'Hello, world!', 'Aloha, everyone!');
+    // });
+
+    // // dblclick event
+    // button.addEventListener('dblclick', () => {
+    //   toggleText(para, 'hello', 'aloha');
+    // });
+
+    // // mouseenter event
+    // button.addEventListener('mouseenter', function () {
+    //   toggleText(para, 'Mouse enter', 'and mouse enter');
+    // });
+
+    // // mouseleave event
+    // button.addEventListener('mouseleave', function () {
+    //   toggleText(para2, 'mouse leave', 'mouse leave again');
+    // });
+
+    // // mousemove event
+    // button.addEventListener('mousemove', function () {
+    //   toggleText(para, 'Hello', 'Aloha');
+    // });
+    // ---------------------------------------------------------------------------
+  </script>
+</html>
